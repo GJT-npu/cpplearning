@@ -21,4 +21,14 @@ int main() {
 	delete[ ] pt;
 
 
+	double array[5] = { 1,2,3,4,5 };
+	double *pt1 = &array[1];
+	double *pt2 = &array[4];
+
+	int diff = pt2 - pt1;
+	cout << "diff = " << pt2 - pt1 << endl;
+
+	cout << "int = " << sizeof(int) << endl;
+
+
 }
