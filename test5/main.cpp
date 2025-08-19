@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 //class Herro {
@@ -105,36 +106,48 @@ using namespace std;
 * 构造函数（形参1， 形参2）：成员变量1（形参1），成员变量2（形参2）{}
 *  
 */
+//
+
+
+/*
+* 静态成员变量的特点：
+* 1、所有的对象共享一份数据
+* 2、编译阶段分配内存
+* 3、需要在类中进行声明那个，在类外进行初始化
+*/
 class Herro {
 public:
-	Herro(string name, int age, int speed) : m_name(name),m_age(age), m_Speed(speed) {
-		cout << "有参构造函数：Herro构造完成！" << endl;
-	}
 
-	void Print() {
-		cout << "姓名：" << m_name << endl;
-		cout << "年龄：" << m_age << endl;
-		cout << "速度：" << m_Speed << endl;
+	Herro() {
+		m_name = "jett";
+		m_tp = 150;
 	}
-
 	~Herro() {
-		cout << "析构函数：Herro析构完成！" << endl;
+
 	}
+
+	// 静态成员变量的声明
+	static int m_HerroCount;
 
 private:
 	string m_name;
-	int m_age;
-	int m_Speed;
+	int m_tp;
 };
+
+// 初始化 静态成员变量 需要在类外进行 加上作用域限定符 Herro::
+int Herro::m_HerroCount = 10;
+
 
 int main() {
 
-	Herro h("GJT" , 24 , 100);
-	h.Print();
+	Herro h; //实例化对象
+	cout << h.m_HerroCount << endl;
+	h.m_HerroCount = 20; // 修改静态成员变量的值
+	cout << Herro::m_HerroCount << endl; // 通过类名访问静态成员变量
+
 
 	return 0;
 }
-
 
 
 
