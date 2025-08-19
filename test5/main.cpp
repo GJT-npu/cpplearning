@@ -235,32 +235,84 @@ using namespace std;
 * this      *this
 *  &h     *(&h) == h
 */
+//class Herro {
+//public:
+//
+//	Herro(int m_tp) {
+//		this->m_tp = m_tp; // 1、使用this指针解决成员变量和形参同名的问题
+//		cout << this << endl; // 输出当前对象的地址
+//		cout << "(*this).m_tp: " << (*this).m_tp << endl; // 2、*this指针是一个隐含的指针，指向当前对象
+//	}
+//
+//	int m_tp;
+//};
+//int main() {
+//
+//	Herro h(100);
+//	cout << "m_tp: " << h.m_tp << endl;
+//	cout << "当前对象的地址：" << &h << endl; // 输出当前对象的地址
+//
+//	Herro h2(200);
+//	cout << "m_tp: " << h2.m_tp << endl;
+//	cout << "当前对象的地址：" << &h2 << endl; // 输出当前对象的地址
+//
+//
+//	return 0;
+//}
+
+/*
+* 六、const修饰成员函数的特点：
+* 1、const修饰成员函数，表示该函数不能修改成员变量的值
+* 2、const成员函数可以被const对象调用
+* 3、const成员函数不能修改成员变量的值，也不可以调用其他非const成员函数
+*/
 class Herro {
 public:
-
-	Herro(int m_tp) {
-		this->m_tp = m_tp; // 1、使用this指针解决成员变量和形参同名的问题
-		cout << this << endl; // 输出当前对象的地址
-		cout << "(*this).m_tp: " << (*this).m_tp << endl; // 2、*this指针是一个隐含的指针，指向当前对象
+	Herro(int tp) : m_tp(tp) {
+		cout << "Herro构造完成" << endl;
 	}
 
+	~Herro() { }
+
+	int GetTp() const{
+		//m_tp = m_tp + 1; //1、const修饰成员函数，表示该函数不能修改成员变量的值
+		return m_tp;
+	}
+
+	void SetTp(int tp) {
+		m_tp = tp;
+	}
+
+	int SetGetTp() const {
+		ShowTp();
+		return m_tp;
+	}
+
+	void ShowTp() const{
+		cout << "SetGetTp调用" << endl;
+	}
+
+
+private:
 	int m_tp;
 };
 int main() {
 
-	Herro h(100);
-	cout << "m_tp: " << h.m_tp << endl;
-	cout << "当前对象的地址：" << &h << endl; // 输出当前对象的地址
+	//1、const修饰成员函数，GetTp中不能改变成员变量m_tp的值
+	Herro h1(100);
+	cout << "初始化 h1 m_tp: " << h1.GetTp() << endl; // 调用const成员函数
 
-	Herro h2(200);
-	cout << "m_tp: " << h2.m_tp << endl;
-	cout << "当前对象的地址：" << &h2 << endl; // 输出当前对象的地址
+	// 2、const成员函数可以被const对象调用
+	const Herro h2(150);
+	//cout << h2.SetTp(100) << endl; // 调用非const成员函数，编译错误
+	cout << "初始化 h2 m_tp: " << h2.GetTp() << endl; // const对象调用const成员函数
 
+	// 3、const成员函数不能修改成员变量的值，也不可以调用其他非const成员函数
+	Herro h3(200);
+	cout << h3.SetGetTp() << endl;
 
 	return 0;
 }
-
-
 
 
 
