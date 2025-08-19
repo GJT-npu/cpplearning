@@ -117,6 +117,10 @@ public:
 		cout << "速度：" << m_Speed << endl;
 	}
 
+	~Herro() {
+		cout << "析构函数：Herro析构完成！" << endl;
+	}
+
 private:
 	string m_name;
 	int m_age;
