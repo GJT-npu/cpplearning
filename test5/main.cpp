@@ -2,6 +2,16 @@
 #include <string>
 using namespace std;
 
+
+
+/*
+* 一、构造函数和析构函数的调用时机
+* 1、析构函数调用时机：函数结束时，局部变量的生命周期结束，析构函数会被调用。
+* 2、拷贝构造函数调用时机：
+		1）当一个对象被另一个同类型的对象初始化时，
+		2）作为函数参数传递时，
+		3）作为函数返回值时。
+*/
 //class Herro {
 //public:
 //	Herro() {
@@ -25,17 +35,7 @@ using namespace std;
 //
 //};
 //
-///*
-//* 1、析构函数调用时机：函数结束时，局部变量的生命周期结束，析构函数会被调用。
-//* 2、拷贝构造函数调用时机：
-//		1）当一个对象被另一个同类型的对象初始化时，
-//		2）作为函数参数传递时，
-//		3）作为函数返回值时。
-//*/
-//
 //// 测试析构函数和拷贝构造函数的调用时机
-//
-//
 //// 1）当一个对象被另一个同类型的对象初始化时，
 //void func1() {
 //	cout << "------------func1 start------------" << endl;
@@ -101,23 +101,90 @@ using namespace std;
 
 
 /*
-* 初始化列表的语法
+* 二、初始化列表的语法
 * 
 * 构造函数（形参1， 形参2）：成员变量1（形参1），成员变量2（形参2）{}
 *  
 */
+//class Herro {
+//public:
+//	Herro(string name, int tp, int speed) : m_name(name), m_tp(tp), m_speed(speed) {
+//		cout << "Herro构造完成！" << endl;
+//	}
 //
+//	~Herro() {
+//		cout << "Herro析构完成！" << endl;
+//	}
+//
+//	void ShowInfo() const {
+//		cout << "Name: " << m_name << endl;
+//		cout << "TP: " << m_tp << endl;
+//		cout << "Speed: " << m_speed << endl;
+//	}
+//
+//private:
+//	string m_name;
+//	int m_tp;
+//	int m_speed;
+//};
+//int main() {
+//
+//	Herro h("jett" , 150 , 300); // 使用初始化列表进行初始化
+//	h.ShowInfo();
+//
+//	return 0;
+//}
 
 
 /*
-* 静态成员变量的特点：
+* 三、静态成员变量的特点：
 * 1、所有的对象共享一份数据
 * 2、编译阶段分配内存
 * 3、需要在类中进行声明那个，在类外进行初始化
 */
+//class Herro {
+//public:
+//
+//	Herro() {
+//		m_name = "jett";
+//		m_tp = 150;
+//	}
+//	~Herro() {
+//
+//	}
+//
+//	// 静态成员变量的声明
+//	static int m_HerroCount;
+//
+//private:
+//	string m_name;
+//	int m_tp;
+//};
+//
+//// 初始化 静态成员变量 需要在类外进行 加上作用域限定符 Herro::
+//int Herro::m_HerroCount = 10;
+//
+//
+//int main() {
+//
+//	Herro h; //实例化对象
+//	cout << h.m_HerroCount << endl;
+//	h.m_HerroCount = 20; // 修改静态成员变量的值
+//	cout << Herro::m_HerroCount << endl; // 通过类名访问静态成员变量
+//
+//
+//	return 0;
+//}
+
+/*
+* 四、静态成员函数的特点：
+* 1、所有对象共享函数
+* 2、只能访问静态成员变量，不能访问非静态成员变量
+* 3、可以使用类名直接调用
+* 4、不能使用this指针
+*/
 class Herro {
 public:
-
 	Herro() {
 		m_name = "jett";
 		m_tp = 150;
@@ -126,25 +193,35 @@ public:
 
 	}
 
-	// 静态成员变量的声明
+	// 声明静态成员变量  可以添加const修饰符 无法被修改
 	static int m_HerroCount;
+
+	// 定义静态成员函数
+	static void ShowCount() {
+		m_HerroCount += 100;
+		cout << "当前Herro对象数量：" << m_HerroCount << endl;
+	}
+
 
 private:
 	string m_name;
 	int m_tp;
 };
 
-// 初始化 静态成员变量 需要在类外进行 加上作用域限定符 Herro::
-int Herro::m_HerroCount = 10;
-
+// 初始化静态成员变量
+int Herro::m_HerroCount = 100;
 
 int main() {
 
-	Herro h; //实例化对象
-	cout << h.m_HerroCount << endl;
-	h.m_HerroCount = 20; // 修改静态成员变量的值
-	cout << Herro::m_HerroCount << endl; // 通过类名访问静态成员变量
+	Herro h1;
 
+	h1.m_HerroCount = 200; // 非const对象可以修改静态成员变量
+	cout << "类名直接调用：" << Herro::m_HerroCount << endl;
+	cout << "对象直接调用：" << h1.m_HerroCount << endl;
+
+	cout << "调用静态成员函数：" << endl;
+	h1.ShowCount();
+	Herro::ShowCount();
 
 	return 0;
 }
