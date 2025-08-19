@@ -183,49 +183,82 @@ using namespace std;
 * 3、可以使用类名直接调用
 * 4、不能使用this指针
 */
+//class Herro {
+//public:
+//	Herro() {
+//		m_name = "jett";
+//		m_tp = 150;
+//	}
+//	~Herro() {
+//
+//	}
+//
+//	// 声明静态成员变量  可以添加const修饰符 无法被修改
+//	static int m_HerroCount;
+//
+//	// 定义静态成员函数
+//	static void ShowCount() {
+//		m_HerroCount += 100;
+//		cout << "当前Herro对象数量：" << m_HerroCount << endl;
+//	}
+//
+//
+//private:
+//	string m_name;
+//	int m_tp;
+//};
+//
+//// 初始化静态成员变量
+//int Herro::m_HerroCount = 100;
+//
+//int main() {
+//
+//	Herro h1;
+//
+//	h1.m_HerroCount = 200; // 非const对象可以修改静态成员变量
+//	cout << "类名直接调用：" << Herro::m_HerroCount << endl;
+//	cout << "对象直接调用：" << h1.m_HerroCount << endl;
+//
+//	cout << "调用静态成员函数：" << endl;
+//	h1.ShowCount();
+//	Herro::ShowCount();
+//
+//	return 0;
+//}
+
+/*
+* 五、this指针的特点：
+* 1、解决成员变量和形参同名的问题
+* 2、*this指针是一个隐含的指针，指向当前对象
+* 3、this指针只能在类的非静态成员函数中使用
+* 
+* this      *this
+*  &h     *(&h) == h
+*/
 class Herro {
 public:
-	Herro() {
-		m_name = "jett";
-		m_tp = 150;
-	}
-	~Herro() {
 
-	}
-
-	// 声明静态成员变量  可以添加const修饰符 无法被修改
-	static int m_HerroCount;
-
-	// 定义静态成员函数
-	static void ShowCount() {
-		m_HerroCount += 100;
-		cout << "当前Herro对象数量：" << m_HerroCount << endl;
+	Herro(int m_tp) {
+		this->m_tp = m_tp; // 1、使用this指针解决成员变量和形参同名的问题
+		cout << this << endl; // 输出当前对象的地址
+		cout << "(*this).m_tp: " << (*this).m_tp << endl; // 2、*this指针是一个隐含的指针，指向当前对象
 	}
 
-
-private:
-	string m_name;
 	int m_tp;
 };
-
-// 初始化静态成员变量
-int Herro::m_HerroCount = 100;
-
 int main() {
 
-	Herro h1;
+	Herro h(100);
+	cout << "m_tp: " << h.m_tp << endl;
+	cout << "当前对象的地址：" << &h << endl; // 输出当前对象的地址
 
-	h1.m_HerroCount = 200; // 非const对象可以修改静态成员变量
-	cout << "类名直接调用：" << Herro::m_HerroCount << endl;
-	cout << "对象直接调用：" << h1.m_HerroCount << endl;
+	Herro h2(200);
+	cout << "m_tp: " << h2.m_tp << endl;
+	cout << "当前对象的地址：" << &h2 << endl; // 输出当前对象的地址
 
-	cout << "调用静态成员函数：" << endl;
-	h1.ShowCount();
-	Herro::ShowCount();
 
 	return 0;
 }
-
 
 
 
