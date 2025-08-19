@@ -266,54 +266,92 @@ using namespace std;
 * 2、const成员函数可以被const对象调用
 * 3、const成员函数不能修改成员变量的值，也不可以调用其他非const成员函数
 */
+//class Herro {
+//public:
+//	Herro(int tp) : m_tp(tp) {
+//		cout << "Herro构造完成" << endl;
+//	}
+//
+//	~Herro() { }
+//
+//	int GetTp() const{
+//		//m_tp = m_tp + 1; //1、const修饰成员函数，表示该函数不能修改成员变量的值
+//		return m_tp;
+//	}
+//
+//	void SetTp(int tp) {
+//		m_tp = tp;
+//	}
+//
+//	int SetGetTp() const {
+//		ShowTp();
+//		return m_tp;
+//	}
+//
+//	void ShowTp() const{
+//		cout << "SetGetTp调用" << endl;
+//	}
+//
+//
+//private:
+//	int m_tp;
+//};
+//int main() {
+//
+//	//1、const修饰成员函数，GetTp中不能改变成员变量m_tp的值
+//	Herro h1(100);
+//	cout << "初始化 h1 m_tp: " << h1.GetTp() << endl; // 调用const成员函数
+//
+//	// 2、const成员函数可以被const对象调用
+//	const Herro h2(150);
+//	//cout << h2.SetTp(100) << endl; // 调用非const成员函数，编译错误
+//	cout << "初始化 h2 m_tp: " << h2.GetTp() << endl; // const对象调用const成员函数
+//
+//	// 3、const成员函数不能修改成员变量的值，也不可以调用其他非const成员函数
+//	Herro h3(200);
+//	cout << h3.SetGetTp() << endl;
+//
+//	return 0;
+//}
+
+/*
+* 七、mutable修饰成员变量的特点:
+* 1、mutable修饰的成员变量可以在const成员函数中修改
+* 2、mutable修饰的成员变量可以被const对象访问
+*/
 class Herro {
 public:
-	Herro(int tp) : m_tp(tp) {
-		cout << "Herro构造完成" << endl;
-	}
+	Herro():m_tp(0),m_TpCouner(0) { }
 
 	~Herro() { }
 
-	int GetTp() const{
-		//m_tp = m_tp + 1; //1、const修饰成员函数，表示该函数不能修改成员变量的值
+	int getTp() const{
+		m_TpCouner++;
 		return m_tp;
 	}
 
-	void SetTp(int tp) {
-		m_tp = tp;
+	void printCounter() const {
+		cout << "" << "getTp被调用了" << m_TpCouner << "次" << endl;
 	}
-
-	int SetGetTp() const {
-		ShowTp();
-		return m_tp;
-	}
-
-	void ShowTp() const{
-		cout << "SetGetTp调用" << endl;
-	}
-
 
 private:
 	int m_tp;
+	mutable int m_TpCouner; // 1、mutable修饰的成员变量可以在const成员函数中修改
+
 };
 int main() {
 
-	//1、const修饰成员函数，GetTp中不能改变成员变量m_tp的值
-	Herro h1(100);
-	cout << "初始化 h1 m_tp: " << h1.GetTp() << endl; // 调用const成员函数
+	Herro h1;
+	h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp();
 
-	// 2、const成员函数可以被const对象调用
-	const Herro h2(150);
-	//cout << h2.SetTp(100) << endl; // 调用非const成员函数，编译错误
-	cout << "初始化 h2 m_tp: " << h2.GetTp() << endl; // const对象调用const成员函数
+	h1.printCounter();
 
-	// 3、const成员函数不能修改成员变量的值，也不可以调用其他非const成员函数
-	Herro h3(200);
-	cout << h3.SetGetTp() << endl;
+	//2、mutable修饰的成员变量可以被const对象访问 m_TpCouner一直在增加
+	const Herro h2;
+	h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp();
+	h2.printCounter();
 
 	return 0;
 }
-
-
 
 
