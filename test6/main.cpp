@@ -16,26 +16,71 @@ using namespace std;
 * 3、成员函数作为友元
 */
 
-// 1、全局函数作为友元
+/*
+1、全局函数作为友元
+*/
+//class People {
+//
+//	friend void friendVisit(People *p);  // 声明全局函数friendVisit为友元函数
+//
+//public:
+//	People() {
+//		m_house = "大平层";
+//		m_car = "BMW";
+//	}
+//
+//	~People() { }
+//
+//	string m_house;
+//
+//private:
+//	string m_car;
+//};
+//
+//void friendVisit(People *p) {
+//	cout << "访问房子" << p->m_house << endl;
+//	cout << "访问汽车" << p->m_car << endl;
+//}
+//
+//int main() {
+//
+//	People p1;
+//	friendVisit(&p1);
+//
+//	return 0;
+//}
+
+/*
+* 2、类作为友元
+*    声明两个友元类People和Peoplefriend，Peoplefriend可以访问People的私有成员。
+*    注意：在声明友元类时，需要在友元类的前面加上关键字friend。
+*    在People中 声明 friend class Peoplefriend; 那么Peoplefriend类就可以访问People类的私有成员。
+*/
+class People;  // 前向声明
+
+class Peoplefriend {
+public:
+	Peoplefriend() { }
+	~Peoplefriend() { }
+	void visit(People *p);  //成员函数声明
+};
+
 class People {
-
-	friend void friendVisit(People *p);  // 声明全局函数friendVisit为友元函数
-
+	friend class Peoplefriend;  // 声明Peoplefriend类为友元类
 public:
 	People() {
 		m_house = "大平层";
 		m_car = "BMW";
 	}
-
 	~People() { }
-
 	string m_house;
-
 private:
 	string m_car;
+
 };
 
-void friendVisit(People *p) {
+// 成员函数实现
+void Peoplefriend::visit(People *p) {
 	cout << "访问房子" << p->m_house << endl;
 	cout << "访问汽车" << p->m_car << endl;
 }
@@ -43,7 +88,11 @@ void friendVisit(People *p) {
 int main() {
 
 	People p1;
-	friendVisit(&p1);
+	Peoplefriend p2;
+
+	p2.visit(&p1);  // 调用友元类的成员函数访问People类的私有成员
 
 	return 0;
 }
+
+
