@@ -106,34 +106,34 @@ using namespace std;
 * 构造函数（形参1， 形参2）：成员变量1（形参1），成员变量2（形参2）{}
 *  
 */
-//class Herro {
-//public:
-//	Herro(string name, int tp, int speed) : m_name(name), m_tp(tp), m_speed(speed) {
-//		cout << "Herro构造完成！" << endl;
-//	}
-//
-//	~Herro() {
-//		cout << "Herro析构完成！" << endl;
-//	}
-//
-//	void ShowInfo() const {
-//		cout << "Name: " << m_name << endl;
-//		cout << "TP: " << m_tp << endl;
-//		cout << "Speed: " << m_speed << endl;
-//	}
-//
-//private:
-//	string m_name;
-//	int m_tp;
-//	int m_speed;
-//};
-//int main() {
-//
-//	Herro h("jett" , 150 , 300); // 使用初始化列表进行初始化
-//	h.ShowInfo();
-//
-//	return 0;
-//}
+class Herro {
+public:
+	Herro(string name, int tp, int speed) : m_name(name), m_tp(tp), m_speed(speed) {
+		cout << "Herro构造完成！" << endl;
+	}
+
+	~Herro() {
+		cout << "Herro析构完成！" << endl;
+	}
+
+	void ShowInfo() const {
+		cout << "Name: " << m_name << endl;
+		cout << "TP: " << m_tp << endl;
+		cout << "Speed: " << m_speed << endl;
+	}
+
+private:
+	string m_name;
+	int m_tp;
+	int m_speed;
+};
+int main() {
+
+	Herro h("jett" , 150 , 300); // 使用初始化列表进行初始化
+	h.ShowInfo();
+
+	return 0;
+}
 
 
 /*
@@ -171,6 +171,9 @@ using namespace std;
 //	cout << h.m_HerroCount << endl;
 //	h.m_HerroCount = 20; // 修改静态成员变量的值
 //	cout << Herro::m_HerroCount << endl; // 通过类名访问静态成员变量
+//
+//	Herro h2;
+//	cout << h2.m_HerroCount << endl; // 所有对象共享同一份数据
 //
 //
 //	return 0;
@@ -222,6 +225,9 @@ using namespace std;
 //	cout << "调用静态成员函数：" << endl;
 //	h1.ShowCount();
 //	Herro::ShowCount();
+//
+//	Herro h2;
+//	h2.ShowCount(); // 所有对象共享函数
 //
 //	return 0;
 //}
@@ -319,39 +325,39 @@ using namespace std;
 * 1、mutable修饰的成员变量可以在const成员函数中修改
 * 2、mutable修饰的成员变量可以被const对象访问
 */
-class Herro {
-public:
-	Herro():m_tp(0),m_TpCouner(0) { }
-
-	~Herro() { }
-
-	int getTp() const{
-		m_TpCouner++;
-		return m_tp;
-	}
-
-	void printCounter() const {
-		cout << "" << "getTp被调用了" << m_TpCouner << "次" << endl;
-	}
-
-private:
-	int m_tp;
-	mutable int m_TpCouner; // 1、mutable修饰的成员变量可以在const成员函数中修改
-
-};
-int main() {
-
-	Herro h1;
-	h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp();
-
-	h1.printCounter();
-
-	//2、mutable修饰的成员变量可以被const对象访问 m_TpCouner一直在增加
-	const Herro h2;
-	h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp();
-	h2.printCounter();
-
-	return 0;
-}
+//class Herro {
+//public:
+//	Herro():m_tp(0),m_TpCouner(0) { }
+//
+//	~Herro() { }
+//
+//	int getTp() const{
+//		m_TpCouner++;
+//		return m_tp;
+//	}
+//
+//	void printCounter() const {
+//		cout << "" << "getTp被调用了" << m_TpCouner << "次" << endl;
+//	}
+//
+//private:
+//	int m_tp;
+//	mutable int m_TpCouner; // 1、mutable修饰的成员变量可以在const成员函数中修改
+//
+//};
+//int main() {
+//
+//	Herro h1;
+//	h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp() , h1.getTp();
+//
+//	h1.printCounter();
+//
+//	//2、mutable修饰的成员变量可以被const对象访问 m_TpCouner一直在增加
+//	const Herro h2;
+//	h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp() , h2.getTp();
+//	h2.printCounter();
+//
+//	return 0;
+//}
 
 
