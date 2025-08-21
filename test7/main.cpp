@@ -97,7 +97,7 @@ using namespace std;
 
 
 class Complex {
-	friend ostream &operator<<(ostream &c , Complex a);
+	friend ostream &operator<<(ostream &c , const Complex& a);
 public:
 	// 默认构造函数
 	Complex() :real(0) , image(0) { }
@@ -129,7 +129,7 @@ private:
 	int image;
 };
 
-ostream &operator<<(ostream &c , Complex a) {
+ostream &operator<<(ostream &c , const Complex& a) {
 	c << a.real << "+" << a.image << "i" << endl;
 	return c;
 }
