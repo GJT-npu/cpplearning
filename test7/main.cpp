@@ -94,57 +94,117 @@ using namespace std;
 *     1、前置递增
 *     2、后置递增
 */
+//class Complex {
+//	friend ostream &operator<<(ostream &c , const Complex &a);
+//public:
+//	// 默认构造函数
+//	Complex() :real(0) , image(0) { }
+//
+//	// 带参数的构造函数
+//	Complex(int real , int image) {
+//		this->real = real;
+//		this->image = image;
+//	}
+//
+//	// 析构函数
+//	~Complex() { }
+//
+//	// 前置递增
+//	Complex &operator++() {
+//		this->real += 1;
+//		return *this;
+//	}
+//
+//	// 后置递增
+//	Complex operator++(int) {
+//		Complex temp = *this; // 保存当前对象的状态
+//		this->real += 1; // 递增操作
+//		return temp; // 返回递增前的状态
+//	}
+//
+//private:
+//	int real;
+//	int image;
+//};
+//
+//ostream &operator<<(ostream &c , const Complex &a) {
+//	c << a.real << "+" << a.image << "i" << endl;
+//	return c;
+//}
+//
+//int main() {
+//
+//	Complex a(10 , 10);
+//	cout << a;
+//
+//	++a;  // 前置递增
+//	cout << "前置递增后： " << ++a;
+//
+//	a++; // 后置递增
+//	cout << "后置递增后： " << a++;
+//	cout << "后置递增后： " << a; // 再次输出，查看递增后的值
+//
+//	return 0;
+//}
 
 
-class Complex {
-	friend ostream &operator<<(ostream &c , const Complex& a);
+/*
+* 四、赋值运算符重载
+*/
+class Hero {
 public:
-	// 默认构造函数
-	Complex() :real(0) , image(0) { }
+	Hero():m_Data(NULL){ }
 
-	// 带参数的构造函数
-	Complex(int real , int image) {
-		this->real = real;
-		this->image = image;
+	Hero(int data) {
+		++count;
+		m_Data = new int;
+		*m_Data = data;
+		cout << "构造函数调用，当前对象数量：" << count << " " << this << endl;
 	}
 
-	// 析构函数
-	~Complex() { }
-
-	// 前置递增
-	Complex& operator++() {
-		this->real += 1;
-		return *this;
+	~Hero() {
+		--count;
+		if (m_Data != NULL) {
+			delete m_Data;
+			m_Data = NULL;
+		}
+		cout << "析构函数调用，当前对象数量：" << count << " " << this << endl;
 	}
 
-	// 后置递增
-	Complex operator++(int) {
-		Complex temp = *this; // 保存当前对象的状态
-		this->real += 1; // 递增操作
-		return temp; // 返回递增前的状态
+	// 赋值运算符重载
+	Hero& operator=(Hero &h) {
+		if (this != &h) { // 防止自我赋值
+			*m_Data = *h.m_Data; // 直接赋值
+		}
+		return *this; // 返回当前对象的引用
 	}
 
-private:
-	int real;
-	int image;
+
+	int *m_Data;
+	static int count; // 静态成员变量 所有对象共享
 };
 
-ostream &operator<<(ostream &c , const Complex& a) {
-	c << a.real << "+" << a.image << "i" << endl;
-	return c;
-}
+int Hero::count = 0;
 
 int main() {
 
-	Complex a(10 , 10);
-	cout << a;
+	Hero h1(1);
+	Hero h2(2);
 
-	++a;  // 前置递增
-	cout << "前置递增后： " << ++a;
+	Hero h3(3);
 
-	a++; // 后置递增
-	cout << "后置递增后： " << a++;
-	cout << "后置递增后： " << a; // 再次输出，查看递增后的值
+	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+	cout << h2.m_Data << ":" << *h2.m_Data << endl;
+	h1 = h2;  // 内存泄露
+	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+	cout << h2.m_Data << ":" << *h2.m_Data << endl;
 
-	return 0;
+	h1 = h2 = h3;  // 链式赋值
+	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+	cout << h2.m_Data << ":" << *h2.m_Data << endl;
+	cout << h3.m_Data << ":" << *h3.m_Data << endl;
+
 }
+
+
+
