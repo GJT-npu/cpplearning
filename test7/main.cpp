@@ -151,60 +151,101 @@ using namespace std;
 /*
 * 四、赋值运算符重载
 */
-class Hero {
-public:
-	Hero():m_Data(NULL){ }
+//class Hero {
+//public:
+//	Hero():m_Data(NULL){ }
+//
+//	Hero(int data) {
+//		++count;
+//		m_Data = new int;
+//		*m_Data = data;
+//		cout << "构造函数调用，当前对象数量：" << count << " " << this << endl;
+//	}
+//
+//	~Hero() {
+//		--count;
+//		if (m_Data != NULL) {
+//			delete m_Data;
+//			m_Data = NULL;
+//		}
+//		cout << "析构函数调用，当前对象数量：" << count << " " << this << endl;
+//	}
+//
+//	// 赋值运算符重载
+//	Hero& operator=(Hero &h) {
+//		if (this != &h) { // 防止自我赋值
+//			*m_Data = *h.m_Data; // 直接赋值
+//		}
+//		return *this; // 返回当前对象的引用
+//	}
+//
+//
+//	int *m_Data;
+//	static int count; // 静态成员变量 所有对象共享
+//};
+//
+//int Hero::count = 0;
+//
+//int main() {
+//
+//	Hero h1(1);
+//	Hero h2(2);
+//
+//	Hero h3(3);
+//
+//	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+//	cout << h2.m_Data << ":" << *h2.m_Data << endl;
+//	h1 = h2;  // 内存泄露
+//	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+//	cout << h2.m_Data << ":" << *h2.m_Data << endl;
+//
+//	h1 = h2 = h3;  // 链式赋值
+//	cout << h1.m_Data << ":" << *h1.m_Data << endl;
+//	cout << h2.m_Data << ":" << *h2.m_Data << endl;
+//	cout << h3.m_Data << ":" << *h3.m_Data << endl;
+//
+//}
 
-	Hero(int data) {
-		++count;
-		m_Data = new int;
-		*m_Data = data;
-		cout << "构造函数调用，当前对象数量：" << count << " " << this << endl;
-	}
-
-	~Hero() {
-		--count;
-		if (m_Data != NULL) {
-			delete m_Data;
-			m_Data = NULL;
-		}
-		cout << "析构函数调用，当前对象数量：" << count << " " << this << endl;
-	}
-
-	// 赋值运算符重载
-	Hero& operator=(Hero &h) {
-		if (this != &h) { // 防止自我赋值
-			*m_Data = *h.m_Data; // 直接赋值
-		}
-		return *this; // 返回当前对象的引用
-	}
-
-
-	int *m_Data;
-	static int count; // 静态成员变量 所有对象共享
-};
-
-int Hero::count = 0;
-
-int main() {
-
-	Hero h1(1);
-	Hero h2(2);
-
-	Hero h3(3);
-
-	cout << h1.m_Data << ":" << *h1.m_Data << endl;
-	cout << h2.m_Data << ":" << *h2.m_Data << endl;
-	h1 = h2;  // 内存泄露
-	cout << h1.m_Data << ":" << *h1.m_Data << endl;
-	cout << h2.m_Data << ":" << *h2.m_Data << endl;
-
-	h1 = h2 = h3;  // 链式赋值
-	cout << h1.m_Data << ":" << *h1.m_Data << endl;
-	cout << h2.m_Data << ":" << *h2.m_Data << endl;
-	cout << h3.m_Data << ":" << *h3.m_Data << endl;
-
-}
+/*
+* 五、关系运算符重载
+*/
+//class Point {
+//public:
+//	Point():m_x(0),m_y(0){ }
+//	
+//	Point(int x , int y) {
+//		m_x = x;
+//		m_y = y;
+//	}
+//
+//	~Point(){ }
+//
+//	bool operator==(const Point &other) const{
+//		return (m_x == other.m_x && m_y == other.m_y);
+//	}
+//
+//
+//private:
+//	int m_x;
+//	int m_y;
+//
+//};
+//
+//
+//int main() {
+//
+//	Point p1(4 , 5);
+//	Point p2(6 , 7);
+//
+//	if (p1 == p2) {
+//		cout << "相等" << endl;
+//	}
+//	else {
+//		cout << "不相等" << endl;
+//	}
+//
+//	return 0;
+//}
 
 
 
