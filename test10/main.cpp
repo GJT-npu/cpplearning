@@ -42,48 +42,101 @@ using namespace std;
 * 2、并改用类模板来实现
 * 3、成员函数类外实现
 */
-template<typename T>
-class DynamicArray {
+//template<typename T>
+//class DynamicArray {
+//public:
+//	DynamicArray(int n);
+//
+//	~DynamicArray();
+//
+//	T &operator[](int index);
+//
+//private:
+//	T *elements; // 存储元素的指针
+//	int size;      // 数组大小
+//};
+//
+//// 成员函数类外实现
+//template<typename T>
+//DynamicArray<T>::DynamicArray(int n) :size(n) {
+//	elements = new T[size]; // 动态分配内存
+//}
+//
+//template<typename T>
+//DynamicArray<T>::~DynamicArray() {
+//	delete[ ] elements; // 释放内存
+//}
+//
+//template<typename T>
+//T &DynamicArray<T>::operator[](int index) {
+//	if (index < 0 || index >= size) {
+//		throw out_of_range("Index out of range");
+//	}
+//	return elements[index]; // 返回指定索引的元素
+//}
+//
+//int main() {
+//
+//	DynamicArray<int> arr(5); // 创建一个大小为5的动态数组
+//	for (int i = 0; i < 5; ++i) {
+//		arr[i] = i * 10; // 设置元素值
+//	}
+//	for (int i = 0; i < 5; ++i) {
+//		cout << "Element at index " << i << ": " << arr[i] << endl; // 输出元素值
+//	}
+//	return 0;
+//}
+
+
+
+/*
+* 三、类模板对象的函数传参
+*	1、直接指定类型
+* 	2、参数模板化
+*   3、类模板化
+*/
+
+template<class NameType, class HpType>
+class Hero {
 public:
-	DynamicArray(int n);
+	Hero(NameType name , HpType hp) : m_name(name) , m_hp(hp) {
 
-	~DynamicArray();
+	}
 
-	T &operator[](int index);
+	void ShowHero() {
+		cout << "Name: " << m_name << " , Hp: " << m_hp << endl;
+	}
 
 private:
-	T *elements; // 存储元素的指针
-	int size;      // 数组大小
+	NameType m_name;
+	HpType m_hp;
 };
 
-// 成员函数类外实现
-template<typename T>
-DynamicArray<T>::DynamicArray(int n) :size(n) {
-	elements = new T[size]; // 动态分配内存
+//1、直接指定类型
+void test1(Hero<string , double> &h) {
+	h.ShowHero();
 }
 
-template<typename T>
-DynamicArray<T>::~DynamicArray() {
-	delete[ ] elements; // 释放内存
+//2、参数模板化
+template<typename T1, typename T2>
+void test2(Hero<T1, T2> &h) {
+	h.ShowHero();
 }
 
+//3、类模板化
 template<typename T>
-T &DynamicArray<T>::operator[](int index) {
-	if (index < 0 || index >= size) {
-		throw out_of_range("Index out of range");
-	}
-	return elements[index]; // 返回指定索引的元素
+void test3(T &h) {
+	h.ShowHero();
 }
+
 
 int main() {
 
-	DynamicArray<int> arr(5); // 创建一个大小为5的动态数组
-	for (int i = 0; i < 5; ++i) {
-		arr[i] = i * 10; // 设置元素值
-	}
-	for (int i = 0; i < 5; ++i) {
-		cout << "Element at index " << i << ": " << arr[i] << endl; // 输出元素值
-	}
+	Hero<string , double> h1("jett" , 100.0);
+
+	test1(h1);
+	test2(h1);
+	test3(h1);
+
 	return 0;
 }
-
